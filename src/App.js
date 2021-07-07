@@ -1,38 +1,86 @@
 import React, { Component } from "react";
-import axios from "axios";
 
 class App extends Component {
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.state = {
-            user: [],
-        };
-    }
-
-    getUser = async () => {
-        let response = await axios.get(
-            "https://jsonplaceholder.typicode.com/users/1"
-        );
-        this.setState({
-            user: response.data,
-        });
+    this.state = {
+      firstname: "",
+      lastname: "",
+      name: "",
     };
+  }
 
-    componentDidMount() {
-        this.getUser();
-    }
+  changeHandler = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  };
 
-    render() {
-        const user = this.state.user;
-        return (
-            <div>
-                <div>
-                    My Name is {user.name} and my email is {user.email}
+  submitHandler = (e) => {
+    e.preventDefault();
+    this.setState({
+      name: `${this.state.firstname} ${this.state.lastname}`,
+    });
+
+    this.state.firstname = "";
+    this.state.lastname = "";
+  };
+
+  render() {
+    const { name } = this.state;
+    return (
+      <div className="p-5">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-4">
+              <div className="card">
+                <div className="card-header">Learn React JS</div>
+                <div className="card-body">
+                  <form onSubmit={this.submitHandler}>
+                    <div className="mb-4">
+                      <label htmlFor="firstname" className="form-label">
+                        Firstname
+                      </label>
+                      <input
+                        type="text"
+                        onChange={this.changeHandler}
+                        value={this.state.firstname}
+                        name="firstname"
+                        id="firstname"
+                        className="form-control"
+                      ></input>
+                    </div>
+                    <div className="mb-4">
+                      <label htmlFor="lastname" className="form-label">
+                        lastname
+                      </label>
+                      <input
+                        type="text"
+                        onChange={this.changeHandler}
+                        value={this.state.lastname}
+                        name="lastname"
+                        id="lastname"
+                        className="form-control"
+                      ></input>
+                    </div>
+                    <div className="d-grid gap-2">
+                      <button className="btn btn-primary" type="submit">
+                        Show
+                      </button>
+                    </div>
+                  </form>
                 </div>
+                <div className="card-footer">
+                  My Name is {name ? name : "..."}
+                </div>
+              </div>
             </div>
-        );
-    }
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
