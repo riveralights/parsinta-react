@@ -1,5 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { UserProvider } from "../views/context/User";
+import AuthenticatedUser from "./AuthenticatedUser";
 
 function Navbar({ children }) {
   return (
@@ -32,6 +34,13 @@ function Navbar({ children }) {
               <li className="nav-item">
                 <NavLink className="nav-link" to="/users">
                   Users
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/">
+                  <UserProvider>
+                    <AuthenticatedUser />
+                  </UserProvider>
                 </NavLink>
               </li>
             </ul>

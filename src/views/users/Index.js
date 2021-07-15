@@ -28,7 +28,7 @@ function Index(props) {
                 <div className="card-header">{user.name}</div>
                 <div className="card-body">
                   <div className="mb-4">
-                    <a href={`//${user.website}`} target="_blank">
+                    <a href={`//${user.website}`} target="_blank" rel="noreferrer">
                       {user.website}
                     </a>
                   </div>
